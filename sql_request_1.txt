@@ -1,0 +1,35 @@
+create table if not exists Genres (
+	id serial primary key,
+	genre_name varchar(25) unique not null
+);
+create table if not exists Musicians (
+	id serial primary key,
+	musician_name varchar(65) unique not null
+);
+create table if not exists GenresMusicians (
+	genres_id integer references Genres(id),
+	musicians_id integer references Musicians(id),
+	constraint pk primary key (genres_id, musicians_id)
+);
+create table if not exists Albums (
+	id serial primary key,
+	album_name text not null,
+	year_release integer not null check(1900<year_release)
+);
+create table if not exists AlbumsMusicians (
+	albums_id integer not null references Albums(id),
+	musicians_id integer not null references Musicians(id),
+	constraint pk2 primary key (albums_id, musicians_id)
+);
+create table if not exists Сollections (
+	id serial primary key,
+	collection_name text not null,
+	year_release integer not null check(1900<year_release)
+);
+create table if not exists Tracks (
+	id serial primary key,
+	track_name text not null,
+	duration integer not null,
+	albums_id integer not null references Albums(id),
+	collections_id integer not null references Сollections(id)
+);
