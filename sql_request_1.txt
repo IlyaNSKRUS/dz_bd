@@ -29,7 +29,12 @@ create table if not exists Сollections (
 create table if not exists Tracks (
 	id serial primary key,
 	track_name text not null,
-	duration integer not null,
-	albums_id integer not null references Albums(id),
-	collections_id integer not null references Сollections(id)
+	duration integer not null check(60<duration),
+	albums_id integer not null references Albums(id)
+	--collections_id integer not null references Сollections(id)
+);
+create table if not exists CollectionsTracks (
+	collections_id integer not null references Сollections(id),
+	tracks_id integer not null references Tracks(id),
+	constraint pk3 primary key (collections_id, tracks_id)
 );
