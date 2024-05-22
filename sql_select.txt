@@ -1,0 +1,51 @@
+-- select 1 из задания 2
+select track_name, duration from tracks
+	where duration = (select max(duration) from tracks);  
+
+-- select 2 из задания 2
+select track_name from tracks
+	where duration > 210;
+	
+-- select 3 из задания 2
+select collection_name from Сollections
+	where year_release > 2018 and year_release <= 2020;
+	
+-- select 4 из задания 2
+select musician_name from musicians
+	where musician_name not like '% %';
+	
+-- select 5 из задания 2
+select track_name from tracks
+	where track_name like '%my%';
+	
+-- select 1 из задания 3 
+select genre_name, count(g2.genres_id) from genres g 
+	join genresmusicians g2 on g.id = g2.genres_id 
+	group by genre_name
+	
+-- select 2 из задания 3
+select count(a.year_release) from tracks t  
+	join albums a on a.id = albums_id
+	where a.year_release = 2019 or a.year_release = 2020
+	group by a.album_name
+
+-- select 3 из задания 3
+select a.album_name, avg(t.duration) from tracks t  
+	join albums a on a.id = albums_id
+	group by a.album_name
+
+-- select 4 из задания 3
+select m.musician_name from musicians m   
+	join albumsmusicians a on a.musicians_id = m.id
+	join albums a2 on a2.id = a.albums_id
+	where a2.year_release != 2020
+
+-- select 5 из задания 3
+select c2.collection_name from musicians m   
+	join albumsmusicians a on a.musicians_id = m.id
+	join albums a2 on a.albums_id = a2.id
+	join tracks t on t.albums_id = a2.id
+	join collectionstracks c on c.tracks_id = t.id
+	join collections c2 on c2.id = c.collections_id 
+	where m.musician_name = 'Metallica'
+	group by c2.collection_name 
