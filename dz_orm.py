@@ -66,7 +66,7 @@ def print_pub():
     for s in selected.all():
         print(s)
 
-DSN = 'postgresql://postgres:Qwerty12%40@localhost:5432/netdb'
+DSN = 'postgresql://postgres:*******@localhost:5432/netdb'
 engine = sqlalchemy.create_engine(DSN)
 create_tables(engine)
 
